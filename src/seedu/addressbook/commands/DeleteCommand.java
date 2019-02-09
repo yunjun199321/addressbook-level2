@@ -4,6 +4,8 @@ import seedu.addressbook.common.Messages;
 import seedu.addressbook.data.person.ReadOnlyPerson;
 import seedu.addressbook.data.person.UniquePersonList.PersonNotFoundException;
 
+import java.util.Scanner;
+
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -18,6 +20,7 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_CANCEL = "Deleted Person Cancel";
 
 
     public DeleteCommand(int targetVisibleIndex) {
@@ -29,8 +32,15 @@ public class DeleteCommand extends Command {
     public CommandResult execute() {
         try {
             final ReadOnlyPerson target = getTargetPerson();
-            addressBook.removePerson(target);
-            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, target));
+            System.out.println("Enter 'yes' to continue:");
+            Scanner SCANNER = new Scanner(System.in);
+            if(SCANNER.next().trim().toLowerCase().equals("yes")){
+                addressBook.removePerson(target);
+                return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, target));
+            }
+            else{
+                return new CommandResult(MESSAGE_DELETE_PERSON_CANCEL);
+            }
 
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
