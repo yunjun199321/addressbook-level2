@@ -105,10 +105,17 @@ Examples:
 
 * `list` +
 `delete 2` +
+`yes` +
 Deletes the 2nd person in the address book.
+
+* `list` +
+`delete 2` +
+`no` +
+Deletes cancel in the address book.
 
 * `find Betsy` +
 `delete 1` +
+`yes` +
 Deletes the 1st person in the results of the `find` command.
 
 == View non-private details of a person : `view`
